@@ -40,56 +40,11 @@
 </head>
 
 <body>
-
-	<div class="navbar-fixed">
-		<nav class="red lighten-2" role="navigation">
-			<div class="nav-wrapper">
-				<div class="box-main-title">
-					<a href="/blog-framework-materializecss/article/" class="brand-logo">Materializecss 探索</a>
-				</div>
-				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-
-
-
-					<ul class="right hide-on-med-and-down">
-
-						<li ><a href="/blog-framework-materializecss/article/">Home</a></li>
-
-						<li ><a href="/blog-framework-materializecss/article/find/archive/">Sitemap</a></li>
-
-						<li ><a href="http://materializecss.com/">Materialize</a></li>
-
-						<li ><a href="https://design.google.com/icons/">MaterialIcons</a></li>
-
-					</ul>
-					<div class="side-nav" id="mobile-demo">
-						<div class="box-logo"><a href="/blog-framework-materializecss/article/" title="Materializecss 探索"><img src="/blog-framework-materializecss/article/asset/img/logo.png" class="img-logo"></a></div>
-
-						<ul>
-
-						<li ><a href="/blog-framework-materializecss/article/" class="waves-effect waves-light">Home</a></li>
-
-						<li ><a href="/blog-framework-materializecss/article/find/archive/" class="waves-effect waves-light">Sitemap</a></li>
-
-						<li ><a href="http://materializecss.com/" class="waves-effect waves-light">Materialize</a></li>
-
-						<li ><a href="https://design.google.com/icons/" class="waves-effect waves-light">MaterialIcons</a></li>
-
-						</ul>
-					</div>
-
-<script type="text/javascript">
-$(function(){
-	$(".button-collapse").sideNav();
-});
-</script>
-
-
-
-			</div>
-		</nav>
-	</div>
-
+	<ul id="slide-out" class="side-nav fixed">
+      <li><a href="#!">First Sidebar Link</a></li>
+      <li><a href="#!">Second Sidebar Link</a></li>
+  </ul>
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 	<div class="container">
 		<div class="row">
 
