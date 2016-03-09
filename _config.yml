@@ -1,2 +1,3 @@
 name: Luca Sciarratta, Bubodlack
 markdown: kramdown
+permalink: /blog/:year/:month/:day/:title
