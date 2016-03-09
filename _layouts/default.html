@@ -28,14 +28,21 @@
 
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link type="text/css" rel="stylesheet" media="screen,projection" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-	<link type="text/css" rel="stylesheet" href="/blog-framework-materializecss/article/asset/css/style.css">
-	<link type="text/css" rel="stylesheet" href="/blog-framework-materializecss/article/asset/lib/sys.css">
+	<link type="text/css" rel="stylesheet" href="/css/style.css">
+
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script> //-->
 	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.ui.min.js"></script> //-->
-	<script src="/blog-framework-materializecss/article/asset/lib/sys.js"></script>
+	<script lang="javascript">
+		$('.button-collapse').sideNav({
+			menuWidth: 300, // Default is 240
+			edge: 'right', // Choose the horizontal origin
+			closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+		}
+	);
+	</script>
 
 </head>
 
