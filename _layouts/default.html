@@ -1,30 +1,189 @@
 <!DOCTYPE html>
-	<html>
-			<head>
-						<title>{{ page.title }}</title>
-									<!-- link to main stylesheet -->
-												<link rel="stylesheet" type="text/css" href="/css/main.css">
-														</head>
-																<body>
-																			<nav>
-																				    		<ul>
-																				    			        		<li><a href="/">Home</a></li>
-																				    			        				        	<li><a href="/about">About</a></li>
-																				    			        				        		        		<li><a href="/cv">CV</a></li>
-																				    			        				        		        			        		<li><a href="/blog">Blog</a></li>
-																				    			        				        		        			        			    		</ul>
-																				    			        				        		        			        			    					</nav>
-																				    			        				        		        			        			    								<div class="container">
-																				    			        				        		        			        			    											
-																				    			        				        		        			        			    														{{ content 
-																				    			        				        		        			        			    														}}
-																				    			        				        		        			        			    																	
-																				    			        				        		        			        			    																				</div><!-- /.container -->
-																				    			        				        		        			        			    																							<footer>
-																				    			        				        		        			        			    																								    		<ul>
-																				    			        				        		        			        			    																								    			        		<li><a href="mailto:hankquinlanhub@gmail.com">email</a></li>
-																				    			        				        		        			        			    																								    			        			        		<li><a href="https://github.com/hankquinlan">github.com/hankquinlan</a></li>
-																				    			        				        		        			        			    																								    			        			        						</ul>
-																				    			        				        		        			        			    																								    			        			        									</footer>
-																				    			        				        		        			        			    																								    			        			        											</body>
-																				    			        				        		        			        			    																								    			        			        												</html>
+<html lang="zh-Hant-TW">
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title> 開站拉！ | Materializecss 探索 </title>
+	<meta property="og:title" content=" 開站拉！ | Materializecss 探索 " />
+	<meta name="twitter:title" content=" 開站拉！ | Materializecss 探索 ">
+
+	<meta property="og:type" content="article">
+	<meta name="twitter:card" content="summary">
+
+	<meta name="description" content=" 開站拉，這個部落格，用來紀錄對「Materialize」的探索心得! ">
+	<meta property="og:description" content=" 開站拉，這個部落格，用來紀錄對「Materialize」的探索心得! " />
+	<meta name="twitter:description" content=" 開站拉，這個部落格，用來紀錄對「Materialize」的探索心得! " />
+
+	<link rel="icon" type="image/x-icon" href="http://foreachsam.github.io/blog-framework-materializecss/article/asset/img/favicon.png">
+
+	<link rel="image_src" href="http://foreachsam.github.io/blog-framework-materializecss/article/asset/img/logo.png" >
+	<meta property="og:image" content="http://foreachsam.github.io/blog-framework-materializecss/article/asset/img/logo.png" />
+
+	<link href="http://foreachsam.github.io/blog-framework-materializecss/article/atom.xml" title="Materializecss 探索" type="application/atom+xml" rel="alternative">
+
+	<link rel="canonical" href="/blog-framework-materializecss/article/read/site/start/index.html">
+
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" media="screen,projection" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+	<link type="text/css" rel="stylesheet" href="/blog-framework-materializecss/article/asset/css/style.css">
+	<link type="text/css" rel="stylesheet" href="/blog-framework-materializecss/article/asset/lib/sys.css">
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script> //-->
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.ui.min.js"></script> //-->
+	<script src="/blog-framework-materializecss/article/asset/lib/sys.js"></script>
+
+</head>
+
+<body>
+
+	<div class="navbar-fixed">
+		<nav class="red lighten-2" role="navigation">
+			<div class="nav-wrapper">
+				<div class="box-main-title">
+					<a href="/blog-framework-materializecss/article/" class="brand-logo">Materializecss 探索</a>
+				</div>
+				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
+
+
+					<ul class="right hide-on-med-and-down">
+
+						<li ><a href="/blog-framework-materializecss/article/">Home</a></li>
+
+						<li ><a href="/blog-framework-materializecss/article/find/archive/">Sitemap</a></li>
+
+						<li ><a href="http://materializecss.com/">Materialize</a></li>
+
+						<li ><a href="https://design.google.com/icons/">MaterialIcons</a></li>
+
+					</ul>
+					<div class="side-nav" id="mobile-demo">
+						<div class="box-logo"><a href="/blog-framework-materializecss/article/" title="Materializecss 探索"><img src="/blog-framework-materializecss/article/asset/img/logo.png" class="img-logo"></a></div>
+
+						<ul>
+
+						<li ><a href="/blog-framework-materializecss/article/" class="waves-effect waves-light">Home</a></li>
+
+						<li ><a href="/blog-framework-materializecss/article/find/archive/" class="waves-effect waves-light">Sitemap</a></li>
+
+						<li ><a href="http://materializecss.com/" class="waves-effect waves-light">Materialize</a></li>
+
+						<li ><a href="https://design.google.com/icons/" class="waves-effect waves-light">MaterialIcons</a></li>
+
+						</ul>
+					</div>
+
+<script type="text/javascript">
+$(function(){
+	$(".button-collapse").sideNav();
+});
+</script>
+
+
+
+			</div>
+		</nav>
+	</div>
+
+	<div class="container">
+		<div class="row">
+
+			<div class="layout-content">
+				{{content}}
+
+				<div class="row panel-content panel-post-item">
+					<div class="box-post-item">
+						<article class="post-item" itemscope itemtype="http://schema.org/Article">
+
+
+
+
+							<p class="content-meta">
+								<span class="meta-date" itemprop="datePublished" content="2016-02-02">2016-02-02</span>
+
+
+									<span class="meta-category">
+
+<a class="category-link" href="/blog-framework-materializecss/article/find/category/site/">site</a>, <a class="category-link" href="/blog-framework-materializecss/article/find/category/site/update/">update</a>
+									</span>
+
+							</p>
+
+
+							<h2 class="box-content-title">
+								<a href="/blog-framework-materializecss/article/read/site/start/"  itemprop="url"><span class="content-title" itemprop="name">開站拉！</span></a>
+							</h2>
+
+							<div class="content post-item-content" itemprop="articleBody">
+
+<h1 id="u958B_u7AD9_u62C9"><a href="#u958B_u7AD9_u62C9" class="headerlink" title="開站拉"></a>開站拉</h1><p>開站拉，這個部落格，用來紀錄對「<a href="http://materializecss.com/" target="_blank" rel="external">Materialize</a>」的探索心得!</p>
+
+						</div>
+
+
+						<div class="content-tag">
+
+<a class="tag-link" href="/blog-framework-materializecss/article/find/tag/start/">start</a>
+
+						</div>
+
+
+
+						</article>
+					</div>
+
+				</div>
+
+				<div class="panel-post-nav">
+					<div class="center-align box-post-nav">
+
+
+					<a class="btn-floating  waves-effect waves-light red lighten-2" href="/blog-framework-materializecss/article/read/start/cdn/" title="使用 CDN"><i class="material-icons">keyboard_arrow_left</i></a>
+
+
+
+
+					</div>
+				</div>
+
+
+			</div>
+
+			<div class="layout-footer" style="clear: both">
+				<div class="panel-footer">
+					<div class="center-align box-footer">
+						<footer class="footer">
+							<p class="cr">&copy; <a href="https://foreachsam.github.io/" target="_blank" >foreachsam</a> </p>
+
+							<span class="theme">Powered: <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme: <a href="https://github.com/foreachsam/hexo-theme-adequate" target="_blank">hexo-theme-adequate</a></span>
+						</footer>
+					</div>
+				</div>
+			</div>
+
+
+<a class="btn-floating waves-effect waves-light lighten-2 red ui-btn-top-hide"><i class="material-icons">keyboard_arrow_up</i></a>
+
+
+
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-56999876-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+
+
+		</div>
+	</div>
+
+</body>
+</html>
