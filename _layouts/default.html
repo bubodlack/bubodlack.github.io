@@ -1,97 +1,20 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
-<head>
+<html>
 
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% include head.html %}
 
-	<title> 開站拉！ | Materializecss 探索 </title>
-	<meta property="og:title" content=" 開站拉！ | Materializecss 探索 " />
-	<meta name="twitter:title" content=" 開站拉！ | Materializecss 探索 ">
+  <body>
 
-	<meta property="og:type" content="article">
-	<meta name="twitter:card" content="summary">
+    {% include header.html %}
 
-	<meta name="description" content=" 開站拉，這個部落格，用來紀錄對「Materialize」的探索心得! ">
-	<meta property="og:description" content=" 開站拉，這個部落格，用來紀錄對「Materialize」的探索心得! " />
-	<meta name="twitter:description" content=" 開站拉，這個部落格，用來紀錄對「Materialize」的探索心得! " />
+    <div class="page-content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </div>
 
-	<link rel="icon" type="image/x-icon" href="http://foreachsam.github.io/blog-framework-materializecss/article/asset/img/favicon.png">
+    {% include footer.html %}
 
-	<link rel="image_src" href="http://foreachsam.github.io/blog-framework-materializecss/article/asset/img/logo.png" >
-	<meta property="og:image" content="http://foreachsam.github.io/blog-framework-materializecss/article/asset/img/logo.png" />
+  </body>
 
-
-	<link rel="canonical" href="/blog-framework-materializecss/article/read/site/start/index.html">
-
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link type="text/css" rel="stylesheet" media="screen,projection" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-	<link type="text/css" rel="stylesheet" href="/css/style.css">
-
-
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script> //-->
-	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.ui.min.js"></script> //-->
-	<script type="text/javascript" src="/javascript/app.js"></script>
-
-
-</head>
-
-<body>
-	<ul id="slide-out" class="side-nav fixed">
-      <li><a href="#!">First Sidebar Link</a></li>
-      <li><a href="#!">Second Sidebar Link</a></li>
-  </ul>
-    <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-	<div class="container">
-		<div class="row">
-
-			<div class="layout-content">
-				<main>
-					{{content}}
-				</main>
-
-
-
-				<div class="panel-post-nav">
-					<div class="center-align box-post-nav">
-
-
-					<a class="btn-floating  waves-effect waves-light red lighten-2" href="/blog-framework-materializecss/article/read/start/cdn/" title="使用 CDN"><i class="material-icons">keyboard_arrow_left</i></a>
-
-
-
-
-					</div>
-				</div>
-
-
-			</div>
-			<footer>
-			<div class="layout-footer" style="clear: both">
-				<div class="panel-footer">
-					<div class="center-align box-footer">
-						<footer class="footer">
-							<p class="cr">&copy; <a href="https://foreachsam.github.io/" target="_blank" >foreachsam</a> </p>
-
-							<span class="theme">Powered: <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme: <a href="https://github.com/foreachsam/hexo-theme-adequate" target="_blank">hexo-theme-adequate</a></span>
-						</footer>
-					</div>
-				</div>
-			</div>
-		</footer>
-
-<a class="btn-floating waves-effect waves-light lighten-2 red ui-btn-top-hide"><i class="material-icons">keyboard_arrow_up</i></a>
-
-
-
-
-
-
-		</div>
-	</div>
-
-</body>
 </html>
