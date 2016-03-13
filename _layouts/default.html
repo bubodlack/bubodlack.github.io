@@ -4,7 +4,11 @@
   {% include head.html %}
 
   <body>
-
+    <ul id="slide-out" class="side-nav fixed">
+     <li><a href="#!">First Sidebar Link</a></li>
+     <li><a href="#!">Second Sidebar Link</a></li>
+   </ul>
+   <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
     {% include header.html %}
 
     <div class="page-content">
@@ -14,7 +18,14 @@
     </div>
 
     {% include footer.html %}
-
+    <script lang="javascript">
+      $('.button-collapse').sideNav({
+         menuWidth: 300, // Default is 240
+         edge: 'right', // Choose the horizontal origin
+         closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+       }
+      );
+    </script>
   </body>
 
 </html>
