@@ -1,5 +1,8 @@
 ---
 published: false
+layout: post
+date: 2016-09-18T16:00:00.000Z
+comments: true
 ---
 > [Buildroot](https://buildroot.org/) is a tool that simplifies and automates the process of building a complete Linux system for an embedded system, using cross-compilation.
 
