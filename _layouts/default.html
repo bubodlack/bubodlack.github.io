@@ -4,20 +4,34 @@
   {% include head.html %}
 
   <body>
-    <ul id="slide-out" class="side-nav fixed">
-     <li><a href="#!">First Sidebar Link</a></li>
-     <li><a href="#!">Second Sidebar Link</a></li>
+    <ul id="slide-out" class="side-nav fixed grey darken-4" >
+      <row>
+        <div class="pad20"></div>
+        <div class="col s12 center-align">
+          <img class="circle" width="92px" height="92px" src="https://dl.dropboxusercontent.com/u/3694465/avatar.png"/>
+        </div>
+
+        <div class="container white-text center-align">
+          <h5>Luca Sciarratta</h5>
+          <h6>Ruby on Rails Developer</h6>
+        </div>
+        <div class="pad20"></div>
+      </row>
+     <li class="white-text center-align" id="blog"><a href="/blog" class="white-text">Blog</a></li>
+     <li class="white-text center-align"><a href="/about" class="white-text">About Me</a></li>
    </ul>
-   <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+   <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu small"></i></a>
     {% include header.html %}
 
 
     <div class="page-content">
       <div class="wrapper">
-        {{ content }}
+
+          {{ content }}
+
       </div>
     </div>
-    
+
 
     {% include footer.html %}
     {% include jsLinks.html %}

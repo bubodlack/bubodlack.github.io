@@ -6,66 +6,103 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>jekyll-materializecss</title>
+  <title>BubodlacK's BlOG</title>
   <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
 ">
 
 <!--  <link rel="stylesheet" href="/css/main.css">-->
 <!--
-  <link rel="canonical" href="http://yourdomain.com/">
-  <link rel="alternate" type="application/rss+xml" title="jekyll-materializecss" href="http://yourdomain.com/feed.xml" />
+  <link rel="canonical" href="http://bubodlack.github.io//">
+  <link rel="alternate" type="application/rss+xml" title="BubodlacK's BlOG" href="http://bubodlack.github.io//feed.xml" />
 -->
-   <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+   <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css"  media="screen,projection"/>
+   <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"  media="screen,projection"/>
+   <link type="text/css" rel="stylesheet" href="/css/style.css"  media="screen,projection"/>
 </head>
 
 
   <body>
-    <ul id="slide-out" class="side-nav fixed">
-     <li><a href="#!">First Sidebar Link</a></li>
-     <li><a href="#!">Second Sidebar Link</a></li>
+    <ul id="slide-out" class="side-nav fixed grey darken-4" >
+      <row>
+        <div class="pad20"></div>
+        <div class="col s12 center-align">
+          <img class="circle" width="92px" height="92px" src="https://dl.dropboxusercontent.com/u/3694465/avatar.png"/>
+        </div>
+
+        <div class="container white-text center-align">
+          <h5>Luca Sciarratta</h5>
+          <h6>Ruby on Rails Developer</h6>
+        </div>
+        <div class="pad20"></div>
+      </row>
+     <li class="white-text center-align" id="blog"><a href="/blog" class="white-text">Blog</a></li>
+     <li class="white-text center-align"><a href="/about" class="white-text">About Me</a></li>
    </ul>
-   <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+   <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu small"></i></a>
     <header class="site-header">
 
 
 </header>
 
 
+
     <div class="page-content">
       <div class="wrapper">
-        <div class="container">
- <div class="row">
-        <div class="col s12 s4">
-          <div class="card  red darken-1 z-depth-5" >
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>This is a simple jekyll template that uses materializecss CSS Framework</p>
-            </div>
-            <div class="card-action">
-              <a href="#">Demo Link </a>
-              <a href='http://materializecss.com/getting-started.html'>materializecss documentation </a>
-              <a href='http://jekyllrb.com/docs/home/'>jekyll documentation </a>
+
+          <main>
+  <div class="container">
+   <div class="row">
+          <div class="col s12 s4">
+            <div class="card grey darken-3 z-depth-5" >
+              <div class="card-content white-text">
+                <span class="card-title">Welcome</span>
+                <p>This is my personal blog </p>
+              </div>
+              <div class="card-action">
+                <a href="#">Demo Link </a>
+                <a href='http://materializecss.com/getting-started.html'>materializecss documentation </a>
+                <a href='http://jekyllrb.com/docs/home/'>jekyll documentation </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+</main>
+
 
       </div>
     </div>
 
-    <footer class="site-footer">
 
+    <footer class="site-footer">
+  <div class="container">
+    
+  </div>
 </footer>
 
-    <script lang="javascript">
-      $('.button-collapse').sideNav({
-         menuWidth: 300, // Default is 240
-         edge: 'right', // Choose the horizontal origin
-         closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
-       }
-      );
-    </script>
+    <div>
+  <!-- jQuery is required by Materialize to function -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script type="text/javascript">
+    //custom JS code
+       $(document).ready(function(){
+            $('.collapsible').collapsible();
+          });
+      $(document).ready(function(){
+        $('.materialboxed').materialbox();
+        });
+  </script>
+  <script lang="javascript">
+    $('.button-collapse').sideNav({
+       menuWidth: 300, // Default is 240
+       edge: 'left', // Choose the horizontal origin
+       closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+     }
+    );
+  </script>
+</div>
+
   </body>
 
 </html>

@@ -1,11 +1,12 @@
 ---
 layout: page
-title: About
+title: About Me
 permalink: /about/
 ---
+My name is Luca Sciarrata and i'm born on 1985 in Catania, Sicily.
+Since childhood i've been attracted  from informatic world.
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+My first approach with the computers was to  destroy those of my father.
+After that i could appreciate use them with my first operative system, DOS.
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
-
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+Over time my interests increased and then moved on Gnu/linux operative systems like slackware and Gentoo.

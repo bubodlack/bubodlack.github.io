@@ -6,65 +6,106 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>About</title>
+  <title>About Me</title>
   <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
 ">
 
 <!--  <link rel="stylesheet" href="/css/main.css">-->
 <!--
-  <link rel="canonical" href="http://yourdomain.com/about/">
-  <link rel="alternate" type="application/rss+xml" title="jekyll-materializecss" href="http://yourdomain.com/feed.xml" />
+  <link rel="canonical" href="http://bubodlack.github.io//about/">
+  <link rel="alternate" type="application/rss+xml" title="BubodlacK's BlOG" href="http://bubodlack.github.io//feed.xml" />
 -->
-   <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+   <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css"  media="screen,projection"/>
+   <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"  media="screen,projection"/>
+   <link type="text/css" rel="stylesheet" href="/css/style.css"  media="screen,projection"/>
 </head>
 
 
   <body>
-    <ul id="slide-out" class="side-nav fixed">
-     <li><a href="#!">First Sidebar Link</a></li>
-     <li><a href="#!">Second Sidebar Link</a></li>
+    <ul id="slide-out" class="side-nav fixed grey darken-4" >
+      <row>
+        <div class="pad20"></div>
+        <div class="col s12 center-align">
+          <img class="circle" width="92px" height="92px" src="https://dl.dropboxusercontent.com/u/3694465/avatar.png"/>
+        </div>
+
+        <div class="container white-text center-align">
+          <h5>Luca Sciarratta</h5>
+          <h6>Ruby on Rails Developer</h6>
+        </div>
+        <div class="pad20"></div>
+      </row>
+     <li class="white-text center-align" id="blog"><a href="/blog" class="white-text">Blog</a></li>
+     <li class="white-text center-align"><a href="/about" class="white-text">About Me</a></li>
    </ul>
-   <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+   <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu small"></i></a>
     <header class="site-header">
 
 
 </header>
 
 
+
     <div class="page-content">
       <div class="wrapper">
-        <div class="post">
 
-  <header class="post-header">
-    <h1 class="post-title">About</h1>
-  </header>
+          <main>
+  <div class="container">
+    <div class="post">
 
-  <article class="post-content">
-    <p>This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at <a href="http://jekyllrb.com/">jekyllrb.com</a></p>
+      <header class="post-header">
+        <h1 class="post-title">About Me</h1>
+      </header>
 
-<p>You can find the source code for the Jekyll new theme at: <a href="https://github.com/jglovier/jekyll-new">github.com/jglovier/jekyll-new</a></p>
+      <article class="post-content flow-text">
+        <p>My name is Luca Sciarrata and i’m born on 1985 in Catania, Sicily.
+Since childhood i’ve been attracted  from informatic world.</p>
 
-<p>You can find the source code for Jekyll at <a href="https://github.com/jekyll/jekyll">github.com/jekyll/jekyll</a></p>
+<p>My first approach with the computers was to  destroy those of my father.
+After that i could appreciate use them with my first operative system, DOS.</p>
 
-  </article>
+<p>Over time my interests increased and then moved on Gnu/linux operative systems like slackware and Gentoo.</p>
 
-</div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
 
       </div>
     </div>
 
-    <footer class="site-footer">
 
+    <footer class="site-footer">
+  <div class="container">
+    
+  </div>
 </footer>
 
-    <script lang="javascript">
-      $('.button-collapse').sideNav({
-         menuWidth: 300, // Default is 240
-         edge: 'right', // Choose the horizontal origin
-         closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
-       }
-      );
-    </script>
+    <div>
+  <!-- jQuery is required by Materialize to function -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script type="text/javascript">
+    //custom JS code
+       $(document).ready(function(){
+            $('.collapsible').collapsible();
+          });
+      $(document).ready(function(){
+        $('.materialboxed').materialbox();
+        });
+  </script>
+  <script lang="javascript">
+    $('.button-collapse').sideNav({
+       menuWidth: 300, // Default is 240
+       edge: 'left', // Choose the horizontal origin
+       closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+     }
+    );
+  </script>
+</div>
+
   </body>
 
 </html>

@@ -1,0 +1,11 @@
+---
+layout: page
+title: Latest posts
+---
+
+    <ul class="posts">
+      {% for post in site.posts %}
+        <li class="col s12"><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a><span class="right">« {{ post.date | date_to_string }}</span></li>
+      {% endfor %}
+    </ul>
+

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Phoenix windows manager for osx</title>
+  <meta name="description" content="In the continous search of the best mode for managing osx windows i have finded many of programs but only one catching my attention.This program, called Phoe...">
+
+<!--  <link rel="stylesheet" href="/css/main.css">-->
+<!--
+  <link rel="canonical" href="http://bubodlack.github.io//blog/2015/02/22/Phoenix-windows-manager-for-osx">
+  <link rel="alternate" type="application/rss+xml" title="BubodlacK's BlOG" href="http://bubodlack.github.io//feed.xml" />
+-->
+   <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css"  media="screen,projection"/>
+   <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"  media="screen,projection"/>
+   <link type="text/css" rel="stylesheet" href="/css/style.css"  media="screen,projection"/>
+</head>
+
+
+  <body>
+    <ul id="slide-out" class="side-nav fixed grey darken-4" >
+      <row>
+        <div class="pad20"></div>
+        <div class="col s12 center-align">
+          <img class="circle" width="92px" height="92px" src="https://dl.dropboxusercontent.com/u/3694465/avatar.png"/>
+        </div>
+
+        <div class="container white-text center-align">
+          <h5>Luca Sciarratta</h5>
+          <h6>Ruby on Rails Developer</h6>
+        </div>
+        <div class="pad20"></div>
+      </row>
+     <li class="white-text center-align" id="blog"><a href="/blog" class="white-text">Blog</a></li>
+     <li class="white-text center-align"><a href="/about" class="white-text">About Me</a></li>
+   </ul>
+   <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu small"></i></a>
+    <header class="site-header">
+
+
+</header>
+
+
+
+    <div class="page-content">
+      <div class="wrapper">
+
+          <main>
+  <div class="container">
+    <div class="post">
+
+      <header class="post-header">
+        <h3>Phoenix windows manager for osx</h3>
+        <p class="post-meta">Feb 22, 2015</p>
+      </header>
+
+      <article class="post-content flow-text">
+        <p>In the continous search of the best mode for managing osx windows i have finded many of programs but only one catching my attention.
+This program, called <a href="https://github.com/kasper/phoenix/wiki">Phoenix</a>, is scripted with javascript through a configuration file located in user home.</p>
+
+<p>My configuration file look like this:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="cm">/**
+ * Phoenix
+ * doc: https://github.com/jasonm23/phoenix/wiki/JavaScript-API-documentation
+ *
+ * Global Settings
+ */</span>
+
+<span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="p">[];</span>
+
+<span class="kd">var</span> <span class="nx">mash</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"alt"</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">mashShift</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"alt"</span><span class="p">,</span> <span class="s2">"shift"</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">mashCtrl</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"alt"</span><span class="p">,</span> <span class="s2">"ctrl"</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">mashCmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"alt"</span><span class="p">,</span> <span class="s2">"cmd"</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">mousePositions</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">HIDE_INACTIVE_WINDOW_TIME</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>  <span class="c1">// minitus</span>
+<span class="kd">var</span> <span class="nx">ACTIVE_WINDOWS_TIMES</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">DEFAULT_WIDTH</span> <span class="o">=</span> <span class="mi">1280</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">WORK_SPACE_INDEX_MAP</span> <span class="o">=</span> <span class="p">{};</span>  <span class="c1">// is a dict, key is display count, val is work space</span>
+<span class="nx">WORK_SPACE_INDEX_MAP</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// one display case</span>
+<span class="nx">WORK_SPACE_INDEX_MAP</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>  <span class="c1">// two display case</span>
+<span class="kd">var</span> <span class="nx">PARK_SPACE_INDEX_MAP</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">PARK_SPACE_INDEX_MAP</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="nx">PARK_SPACE_INDEX_MAP</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">PARK_SPACE_APP_INDEX_MAP</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">PARK_SPACE_APP_INDEX_MAP</span><span class="p">[</span><span class="s1">'iTerm'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">PARK_SPACE_APP_INDEX_MAP</span><span class="p">[</span><span class="s1">'Safari'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">PARK_SPACE_APP_INDEX_MAP</span><span class="p">[</span><span class="s1">'QQ'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">PARK_SPACE_APP_INDEX_MAP</span><span class="p">[</span><span class="s1">'BearyChat'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+
+<span class="cm">/**
+ * Utils Functions
+ */</span>
+
+<span class="kd">function</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">modal</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Modal</span><span class="p">();</span>
+  <span class="nx">modal</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">message</span><span class="p">;</span>
+  <span class="nx">modal</span><span class="p">.</span><span class="nx">duration</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="nx">modal</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">assert</span><span class="p">(</span><span class="nx">condition</span><span class="p">,</span> <span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="nx">message</span> <span class="o">||</span> <span class="s2">"Assertion failed"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">String</span><span class="p">.</span><span class="nx">format</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">String</span><span class="p">.</span><span class="nx">format</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">format</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">format</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/{</span><span class="se">(\d</span><span class="sr">+</span><span class="se">)</span><span class="sr">}/g</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">match</span><span class="p">,</span> <span class="nx">number</span><span class="p">)</span> <span class="p">{</span> 
+      <span class="k">return</span> <span class="k">typeof</span> <span class="nx">args</span><span class="p">[</span><span class="nx">number</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'undefined'</span>
+      <span class="p">?</span> <span class="nx">args</span><span class="p">[</span><span class="nx">number</span><span class="p">]</span> 
+      <span class="p">:</span> <span class="nx">match</span>
+      <span class="p">;</span>
+    <span class="p">});</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">alert_title</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span> <span class="nx">Modal</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">title</span><span class="p">());</span> <span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">sortByMostRecent</span><span class="p">(</span><span class="nx">windows</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">visibleAppMostRecentFirst</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">Window</span><span class="p">.</span><span class="nx">visibleWindowsInOrder</span><span class="p">(),</span>
+                                        <span class="kd">function</span><span class="p">(</span><span class="nx">w</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">w</span><span class="p">.</span><span class="nx">hash</span><span class="p">();</span> <span class="p">});</span>
+  <span class="kd">var</span> <span class="nx">visibleAppMostRecentFirstWithWeight</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">object</span><span class="p">(</span><span class="nx">visibleAppMostRecentFirst</span><span class="p">,</span>
+                                                     <span class="nx">_</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="nx">visibleAppMostRecentFirst</span><span class="p">.</span><span class="nx">length</span><span class="p">));</span>
+  <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">sortBy</span><span class="p">(</span><span class="nx">windows</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">visibleAppMostRecentFirstWithWeight</span><span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">hash</span><span class="p">()];</span> <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">getNewFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">,</span> <span class="nx">oldScreenRect</span><span class="p">,</span> <span class="nx">newScreenRect</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getResizeFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">,</span> <span class="nx">ratio</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">mid_pos_x</span> <span class="o">=</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">mid_pos_y</span> <span class="o">=</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">x</span><span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nx">ratio</span><span class="p">)),</span>
+    <span class="na">y</span><span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">height</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nx">ratio</span><span class="p">)),</span>
+    <span class="na">width</span><span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">width</span> <span class="o">*</span> <span class="nx">ratio</span><span class="p">),</span>
+    <span class="na">height</span><span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">height</span> <span class="o">*</span> <span class="nx">ratio</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getSmallerFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">getResizeFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getLargerFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">getResizeFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * Screen Functions
+ */</span>
+
+<span class="kd">function</span> <span class="nx">moveToScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nx">screen</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">screen</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+  <span class="kd">var</span> <span class="nx">frame</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">oldScreenRect</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">visibleFrameInRectangle</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">newScreenRect</span> <span class="o">=</span> <span class="nx">screen</span><span class="p">.</span><span class="nx">visibleFrameInRectangle</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">xRatio</span> <span class="o">=</span> <span class="nx">newScreenRect</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="nx">oldScreenRect</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">yRatio</span> <span class="o">=</span> <span class="nx">newScreenRect</span><span class="p">.</span><span class="nx">height</span> <span class="o">/</span> <span class="nx">oldScreenRect</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+
+  <span class="kd">var</span> <span class="nx">mid_pos_x</span> <span class="o">=</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">width</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">mid_pos_y</span> <span class="o">=</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+
+  <span class="nb">window</span><span class="p">.</span><span class="nx">setFrame</span><span class="p">({</span>
+    <span class="na">x</span><span class="p">:</span> <span class="p">(</span><span class="nx">mid_pos_x</span> <span class="o">-</span> <span class="nx">oldScreenRect</span><span class="p">.</span><span class="nx">x</span><span class="p">)</span> <span class="o">*</span> <span class="nx">xRatio</span> <span class="o">+</span> <span class="nx">newScreenRect</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
+    <span class="na">y</span><span class="p">:</span> <span class="p">(</span><span class="nx">mid_pos_y</span> <span class="o">-</span> <span class="nx">oldScreenRect</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span> <span class="o">*</span> <span class="nx">yRatio</span> <span class="o">+</span> <span class="nx">newScreenRect</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
+    <span class="na">width</span><span class="p">:</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">height</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">windowsOnOtherScreen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">otherWindowsOnSameScreen</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">().</span><span class="nx">otherWindowsOnSameScreen</span><span class="p">();</span>  <span class="c1">// slow</span>
+  <span class="kd">var</span> <span class="nx">otherWindowTitlesOnSameScreen</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">otherWindowsOnSameScreen</span> <span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">w</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">w</span><span class="p">.</span><span class="nx">title</span><span class="p">();</span> <span class="p">});</span>
+  <span class="kd">var</span> <span class="nx">return_value</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">chain</span><span class="p">(</span><span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">().</span><span class="nx">otherWindowsOnAllScreens</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">!</span> <span class="nx">_</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">otherWindowTitlesOnSameScreen</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">title</span><span class="p">());</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nx">value</span><span class="p">();</span>
+  <span class="k">return</span> <span class="nx">return_value</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="cm">/**
+ * Window Functions
+ */</span>
+
+<span class="kd">function</span> <span class="nx">hide_inactiveWindow</span><span class="p">(</span><span class="nx">windows</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">now</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">;</span>
+  <span class="nx">_</span><span class="p">.</span><span class="nx">chain</span><span class="p">(</span><span class="nx">windows</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ACTIVE_WINDOWS_TIMES</span><span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">app</span><span class="p">().</span><span class="nx">pid</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">ACTIVE_WINDOWS_TIMES</span><span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">app</span><span class="p">().</span><span class="nx">pid</span><span class="p">]</span> <span class="o">=</span> <span class="nx">now</span><span class="p">;</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}).</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">now</span> <span class="o">-</span> <span class="nx">ACTIVE_WINDOWS_TIMES</span><span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">app</span><span class="p">().</span><span class="nx">pid</span><span class="p">]</span><span class="o">&gt;</span> <span class="nx">HIDE_INACTIVE_WINDOW_TIME</span> <span class="o">*</span> <span class="mi">60</span><span class="p">;</span>
+    <span class="c1">//return now - ACTIVE_WINDOWS_TIMES[window.app().pid]&gt; 5;</span>
+  <span class="p">}).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span><span class="nb">window</span><span class="p">.</span><span class="nx">app</span><span class="p">().</span><span class="nx">hide</span><span class="p">()});</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">heartbeat_window</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">ACTIVE_WINDOWS_TIMES</span><span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">app</span><span class="p">().</span><span class="nx">pid</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">;</span>
+  <span class="c1">//hide_inactiveWindow(window.otherWindowsOnSameScreen());</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getAnotherWindowsOnSameScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nx">offset</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">windows</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">otherWindowsOnSameScreen</span><span class="p">();</span> <span class="c1">// slow, makes `Saved spin report for Phoenix version 1.2 (1.2) to /Library/Logs/DiagnosticReports/Phoenix_2015-05-30-170354_majin.spin`</span>
+  <span class="nx">windows</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+  <span class="nx">windows</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">chain</span><span class="p">(</span><span class="nx">windows</span><span class="p">).</span><span class="nx">sortBy</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">x</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">y</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">app</span><span class="p">().</span><span class="nx">pid</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">title</span><span class="p">()].</span><span class="nx">join</span><span class="p">(</span><span class="s1">'_'</span><span class="p">);</span>
+  <span class="p">}).</span><span class="nx">value</span><span class="p">().</span><span class="nx">reverse</span><span class="p">();</span>
+  <span class="k">return</span> <span class="nx">windows</span><span class="p">[(</span><span class="nx">_</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">windows</span><span class="p">,</span> <span class="nb">window</span><span class="p">)</span> <span class="o">+</span> <span class="nx">offset</span> <span class="o">+</span> <span class="nx">windows</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="o">%</span> <span class="nx">windows</span><span class="p">.</span><span class="nx">length</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getPreviousWindowsOnSameScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">getAnotherWindowsOnSameScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">getNextWindowsOnSameScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">getAnotherWindowsOnSameScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">setWindowCentral</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">setTopLeft</span><span class="p">({</span>
+    <span class="na">x</span><span class="p">:</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">frameInRectangle</span><span class="p">().</span><span class="nx">width</span> <span class="o">-</span> <span class="nb">window</span><span class="p">.</span><span class="nx">size</span><span class="p">().</span><span class="nx">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">frameInRectangle</span><span class="p">().</span><span class="nx">x</span><span class="p">,</span>
+    <span class="na">y</span><span class="p">:</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">frameInRectangle</span><span class="p">().</span><span class="nx">height</span> <span class="o">-</span> <span class="nb">window</span><span class="p">.</span><span class="nx">size</span><span class="p">().</span><span class="nx">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">frameInRectangle</span><span class="p">().</span><span class="nx">y</span>
+  <span class="p">});</span>
+  <span class="nx">heartbeat_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">};</span>
+
+
+<span class="cm">/**
+ * Mouse Functions
+ */</span>
+
+<span class="kd">function</span> <span class="nx">save_mouse_position_for_window</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="nx">heartbeat_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">pos</span> <span class="o">=</span> <span class="nx">Mouse</span><span class="p">.</span><span class="nx">location</span><span class="p">()</span>
+  <span class="c1">//pos.y = 800 - pos.y;  // fix phoenix 2.x bug</span>
+  <span class="nx">mousePositions</span><span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">hash</span><span class="p">()]</span> <span class="o">=</span> <span class="nx">pos</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">set_mouse_position_for_window_center</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Mouse</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">({</span>
+    <span class="na">x</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">topLeft</span><span class="p">().</span><span class="nx">x</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="na">y</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">topLeft</span><span class="p">().</span><span class="nx">y</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">height</span> <span class="o">/</span> <span class="mi">2</span>
+  <span class="p">});</span>
+  <span class="nx">heartbeat_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">restore_mouse_position_for_window</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">mousePositions</span><span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">hash</span><span class="p">()])</span> <span class="p">{</span>
+    <span class="nx">set_mouse_position_for_window_center</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kd">var</span> <span class="nx">pos</span> <span class="o">=</span> <span class="nx">mousePositions</span><span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">hash</span><span class="p">()];</span>
+  <span class="kd">var</span> <span class="nx">rect</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">pos</span><span class="p">.</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">x</span> <span class="o">||</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nx">rect</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">||</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">y</span> <span class="o">&lt;</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">y</span> <span class="o">||</span> <span class="nx">pos</span><span class="p">.</span> <span class="nx">y</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nx">rect</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">height</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">set_mouse_position_for_window_center</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">//Phoenix.log(String.format('x: {0}, y: {1}', pos.x, pos.y));</span>
+  <span class="nx">Mouse</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">pos</span><span class="p">);</span>
+  <span class="nx">heartbeat_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">restore_mouse_position_for_now</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">()</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">restore_mouse_position_for_window</span><span class="p">(</span><span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">());</span>
+<span class="p">}</span>
+
+
+<span class="cm">/**
+ * App Functions
+ */</span>
+
+<span class="kd">function</span> <span class="nx">launchOrFocus</span><span class="p">(</span><span class="nx">appName</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">App</span><span class="p">.</span><span class="nx">launch</span><span class="p">(</span><span class="nx">appName</span><span class="p">);</span>
+  <span class="nx">assert</span><span class="p">(</span><span class="nx">app</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">);</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+  <span class="k">return</span> <span class="nx">app</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//switch app, and remember mouse position</span>
+<span class="kd">function</span> <span class="nx">callApp</span><span class="p">(</span><span class="nx">appName</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">save_mouse_position_for_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">//App.launch(appName);</span>
+  <span class="kd">var</span> <span class="nx">newWindow</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">first</span><span class="p">(</span><span class="nx">launchOrFocus</span><span class="p">(</span><span class="nx">appName</span><span class="p">).</span><span class="nx">windows</span><span class="p">());</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">newWindow</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span> <span class="o">!==</span> <span class="nx">newWindow</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">restore_mouse_position_for_window</span><span class="p">(</span><span class="nx">newWindow</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * My Configuartion Global
+ */</span>
+
+<span class="nx">Phoenix</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span>
+    <span class="s1">'daemon'</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s1">'openAtLogin'</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">});</span>
+
+<span class="cm">/**
+ * My Configuartion App
+ */</span>
+
+<span class="c1">// Launch App</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'`'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'iTerm'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'1'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'Google Chrome'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="c1">//keys.push(Phoenix.bind('1', mash, function() { callApp('Chromium'); }));</span>
+<span class="c1">//var handler_mash_1 = Phoenix.bind('1', mash, function() { callApp('FirefoxDeveloperEdition'); });</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'2'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'Safari'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'2'</span><span class="p">,</span> <span class="nx">mashShift</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'Firefox'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="c1">//var handler_mashShift_2 = Phoenix.bind('2', mashShift, function() { callApp('Chromium'); });</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'3'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'QQ'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'4'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'BearyChat'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'7'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'钉钉'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'8'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'Wechat'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'Preview'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'a'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'MacVim'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="c1">//var handler_mash_s = Phoenix.bind('s', mash, function() { callApp('IntelliJ IDEA 15 CE'); });</span>
+<span class="c1">//keys.push(Phoenix.bind('s', mash, function() { callApp('IntelliJ IDEA 14'); }));</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'s'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'IntelliJ IDEA'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="c1">//var handler_mash_z = Phoenix.bind('z', mash, function() { callApp('Mou'); });</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'z'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'Macdown'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="c1">//var handler_mash_z = Phoenix.bind('z', mash, function() { callApp('Typora'); });</span>
+<span class="c1">//var handler_mash_z = Phoenix.bind('z', mash, function() { callApp('Typora'); });</span>
+<span class="c1">//var handler_mash_z = Phoenix.bind('z', mash, function() { callApp('Atom'); });</span>
+<span class="c1">//var handler_mash_comma = Phoenix.bind(',', mash, function() { callApp('Airmail 2'); });</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'Mail'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'9'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'NeteaseMusic'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="c1">//var handler_mash_, = Phoenix.bind(',', mash, function() { callApp('Sparrow'); });</span>
+<span class="c1">//var handler_mash_, = Phoenix.bind(',', mash, function() { callApp('Inky'); });</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'.'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'Evernote'</span><span class="p">);</span> <span class="p">}));</span>
+<span class="c1">//keys.push(Phoenix.bind('.', mash, function() { callApp('Alternote'); }));</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callApp</span><span class="p">(</span><span class="s1">'Finder'</span><span class="p">);</span> <span class="p">}));</span>
+
+
+<span class="cm">/**
+ * My Configuartion Screen
+ */</span>
+
+<span class="kd">function</span> <span class="nx">focusAnotherScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nx">targetScreen</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">currentScreen</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">()</span> <span class="o">===</span> <span class="nx">targetScreen</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="c1">//if (targetScreen.frameInRectangle().x &lt; currentScreen.frameInRectangle().x) {</span>
+    <span class="c1">//return;</span>
+  <span class="c1">//}</span>
+  <span class="nx">save_mouse_position_for_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">targetScreenWindows</span> <span class="o">=</span> <span class="nx">sortByMostRecent</span><span class="p">(</span><span class="nx">targetScreen</span><span class="p">.</span><span class="nx">windows</span><span class="p">());</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">targetScreenWindows</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kd">var</span> <span class="nx">targetWindow</span> <span class="o">=</span> <span class="nx">targetScreenWindows</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="nx">targetWindow</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>  <span class="c1">// bug, two window in two space, focus will focus in same space first</span>
+  <span class="nx">restore_mouse_position_for_window</span><span class="p">(</span><span class="nx">targetWindow</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Next screen</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'l'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">allScreens</span> <span class="o">=</span> <span class="nx">Screen</span><span class="p">.</span><span class="nx">screens</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">currentScreen</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">targetScreen</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">next</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">allScreens</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">hash</span><span class="p">();</span> <span class="p">}),</span> <span class="nx">targetScreen</span><span class="p">.</span><span class="nx">hash</span><span class="p">())</span>
+	  <span class="o">&gt;=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">allScreens</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">hash</span><span class="p">();</span> <span class="p">}),</span> <span class="nx">currentScreen</span><span class="p">.</span><span class="nx">hash</span><span class="p">()))</span> <span class="p">{</span>
+		<span class="k">return</span><span class="p">;</span>
+	  <span class="p">}</span>
+	  <span class="nx">focusAnotherScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nx">targetScreen</span><span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Previous Screen</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'h'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">allScreens</span> <span class="o">=</span> <span class="nx">Screen</span><span class="p">.</span><span class="nx">screens</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">currentScreen</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">targetScreen</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">previous</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">allScreens</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">hash</span><span class="p">();</span> <span class="p">}),</span> <span class="nx">targetScreen</span><span class="p">.</span><span class="nx">hash</span><span class="p">())</span>
+	  <span class="o">&lt;=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">allScreens</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">hash</span><span class="p">();</span> <span class="p">}),</span> <span class="nx">currentScreen</span><span class="p">.</span><span class="nx">hash</span><span class="p">()))</span> <span class="p">{</span>
+		<span class="k">return</span><span class="p">;</span>
+	  <span class="p">}</span>
+  <span class="nx">focusAnotherScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nx">targetScreen</span><span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Move Current Window to Next Screen</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'l'</span><span class="p">,</span> <span class="nx">mashShift</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">()</span> <span class="o">===</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">next</span><span class="p">())</span> <span class="k">return</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">next</span><span class="p">().</span><span class="nx">frameInRectangle</span><span class="p">().</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">moveToScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">next</span><span class="p">());</span>
+  <span class="nx">restore_mouse_position_for_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Move Current Window to Previous Screen</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'h'</span><span class="p">,</span> <span class="nx">mashShift</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">()</span> <span class="o">===</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">next</span><span class="p">())</span> <span class="k">return</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">next</span><span class="p">().</span><span class="nx">frameInRectangle</span><span class="p">().</span><span class="nx">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">moveToScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">previous</span><span class="p">());</span>
+  <span class="nx">restore_mouse_position_for_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">}));</span>
+
+
+<span class="cm">/**
+ * My Configuartion Window
+ */</span>
+
+<span class="c1">// Window Hide Inactive</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'delete'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="nx">heartbeat_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+  <span class="nx">hide_inactiveWindow</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">otherWindowsOnAllScreens</span><span class="p">());</span>
+<span class="p">}));</span>
+
+<span class="c1">// Window Maximize</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'m'</span><span class="p">,</span> <span class="nx">mashShift</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">maximize</span><span class="p">();</span>
+  <span class="nx">setWindowCentral</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+  <span class="c1">//heartbeat_window(window);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Window Smaller</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'-'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">oldFrame</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">frame</span> <span class="o">=</span> <span class="nx">getSmallerFrame</span><span class="p">(</span><span class="nx">oldFrame</span><span class="p">);</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">setFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">width</span> <span class="o">==</span> <span class="nx">oldFrame</span><span class="p">.</span><span class="nx">width</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">height</span> <span class="o">==</span> <span class="nx">oldFrame</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">setFrame</span><span class="p">(</span><span class="nx">oldFrame</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">//heartbeat_window(window);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Window Larger</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'='</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">frame</span> <span class="o">=</span> <span class="nx">getLargerFrame</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">());</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">width</span> <span class="o">&gt;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">frameInRectangle</span><span class="p">().</span><span class="nx">width</span> <span class="o">||</span>
+      <span class="nx">frame</span><span class="p">.</span><span class="nx">height</span> <span class="o">&gt;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">frameInRectangle</span><span class="p">().</span><span class="nx">height</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">maximize</span><span class="p">();</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">setFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">//heartbeat_window(window);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Window Central</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'m'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="nx">setWindowCentral</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Window Height</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'\\'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">setFrame</span><span class="p">({</span>
+    <span class="na">x</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">x</span><span class="p">,</span>
+    <span class="na">y</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">frameInRectangle</span><span class="p">().</span><span class="nx">y</span><span class="p">,</span>
+    <span class="na">width</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">width</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">frameInRectangle</span><span class="p">().</span><span class="nx">height</span>
+  <span class="p">});</span>
+  <span class="nx">heartbeat_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Window Width</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'\\'</span><span class="p">,</span> <span class="nx">mashShift</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">setFrame</span><span class="p">({</span>
+    <span class="na">x</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">x</span><span class="p">,</span>
+    <span class="na">y</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">frameInRectangle</span><span class="p">().</span><span class="nx">y</span><span class="p">,</span>
+    <span class="na">width</span><span class="p">:</span> <span class="nx">DEFAULT_WIDTH</span><span class="p">,</span>  <span class="c1">// Mac width</span>
+    <span class="na">height</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">height</span>
+  <span class="p">});</span>
+  <span class="nx">heartbeat_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Window &gt;</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'l'</span><span class="p">,</span> <span class="nx">mashCtrl</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">setFrame</span><span class="p">({</span>
+    <span class="na">x</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">x</span> <span class="o">+</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="na">y</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">y</span><span class="p">,</span>
+    <span class="na">width</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">width</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">height</span>
+  <span class="p">});</span>
+  <span class="nx">heartbeat_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Window &lt;</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'h'</span><span class="p">,</span> <span class="nx">mashCtrl</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">setFrame</span><span class="p">({</span>
+    <span class="na">x</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">x</span> <span class="o">-</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="na">y</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">y</span><span class="p">,</span>
+    <span class="na">width</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">width</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">height</span>
+  <span class="p">});</span>
+  <span class="nx">heartbeat_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Window ^</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'k'</span><span class="p">,</span> <span class="nx">mashCtrl</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">setFrame</span><span class="p">({</span>
+    <span class="na">x</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">x</span><span class="p">,</span>
+    <span class="na">y</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">y</span> <span class="o">-</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="na">width</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">width</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">height</span>
+  <span class="p">});</span>
+  <span class="nx">heartbeat_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Window v</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'j'</span><span class="p">,</span> <span class="nx">mashCtrl</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">setFrame</span><span class="p">({</span>
+    <span class="na">x</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">x</span><span class="p">,</span>
+    <span class="na">y</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">y</span> <span class="o">+</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="na">width</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">width</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">frame</span><span class="p">().</span><span class="nx">height</span>
+  <span class="p">});</span>
+  <span class="nx">heartbeat_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Previous Window in One Screen</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'k'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">Window</span><span class="p">.</span><span class="nx">visibleWindowsInOrder</span><span class="p">().</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="nx">Window</span><span class="p">.</span><span class="nx">visibleWindowsInOrder</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="nx">focus</span><span class="p">();</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">save_mouse_position_for_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">targetWindow</span> <span class="o">=</span> <span class="nx">getPreviousWindowsOnSameScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+  <span class="nx">targetWindow</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+  <span class="nx">restore_mouse_position_for_window</span><span class="p">(</span><span class="nx">targetWindow</span><span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="c1">// Next Window in One Screen</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'j'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">Window</span><span class="p">.</span><span class="nx">visibleWindowsInOrder</span><span class="p">().</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="nx">Window</span><span class="p">.</span><span class="nx">visibleWindowsInOrder</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="nx">focus</span><span class="p">();</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">save_mouse_position_for_window</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">targetWindow</span> <span class="o">=</span> <span class="nx">getNextWindowsOnSameScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>  <span class="c1">// &lt;- most time cost</span>
+  <span class="nx">targetWindow</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+  <span class="nx">restore_mouse_position_for_window</span><span class="p">(</span><span class="nx">targetWindow</span><span class="p">);</span>
+<span class="p">}));</span>
+
+
+<span class="cm">/**
+ * My Configuartion Mouse
+ */</span>
+
+<span class="c1">// Central Mouse</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'space'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="nx">set_mouse_position_for_window_center</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+<span class="p">}));</span>
+
+
+<span class="cm">/**
+ * Mission Control
+ */</span>
+
+<span class="c1">// use Mac Keyboard setting</span>
+<span class="c1">// mash + i</span>
+<span class="c1">// mash + o</span>
+
+<span class="c1">// move window to prev space</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'i'</span><span class="p">,</span> <span class="nx">mashCtrl</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">isFullScreen</span><span class="p">()</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">isMinimized</span><span class="p">())</span> <span class="k">return</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">Space</span><span class="p">.</span><span class="nx">activeSpace</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">allSpaces</span> <span class="o">=</span> <span class="nx">Space</span><span class="p">.</span><span class="nx">spaces</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">previous</span> <span class="o">=</span> <span class="nx">current</span><span class="p">.</span><span class="nx">previous</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">previous</span><span class="p">.</span><span class="nx">isFullScreen</span><span class="p">())</span> <span class="k">return</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">previous</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">hash</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">current</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">hash</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">allSpaces</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">hash</span><span class="p">();</span> <span class="p">}),</span> <span class="nx">previous</span><span class="p">.</span><span class="nx">hash</span><span class="p">())</span>
+      <span class="o">&gt;=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">allSpaces</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">hash</span><span class="p">();</span> <span class="p">}),</span> <span class="nx">current</span><span class="p">.</span><span class="nx">hash</span><span class="p">()))</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">current</span><span class="p">.</span><span class="nx">removeWindows</span><span class="p">([</span><span class="nb">window</span><span class="p">]);</span>
+  <span class="nx">previous</span><span class="p">.</span><span class="nx">addWindows</span><span class="p">([</span><span class="nb">window</span><span class="p">]);</span>
+<span class="p">}));</span>
+
+<span class="c1">// move window to next space</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'o'</span><span class="p">,</span> <span class="nx">mashCtrl</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">isFullScreen</span><span class="p">()</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">isMinimized</span><span class="p">())</span> <span class="k">return</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">Space</span><span class="p">.</span><span class="nx">activeSpace</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">allSpaces</span> <span class="o">=</span> <span class="nx">Space</span><span class="p">.</span><span class="nx">spaces</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">current</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">isFullScreen</span><span class="p">())</span> <span class="k">return</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">hash</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">current</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">hash</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">allSpaces</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">hash</span><span class="p">();</span> <span class="p">}),</span> <span class="nx">next</span><span class="p">.</span><span class="nx">hash</span><span class="p">())</span>
+      <span class="o">&lt;=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">allSpaces</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">hash</span><span class="p">();</span> <span class="p">}),</span> <span class="nx">current</span><span class="p">.</span><span class="nx">hash</span><span class="p">()))</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">current</span><span class="p">.</span><span class="nx">removeWindows</span><span class="p">([</span><span class="nb">window</span><span class="p">]);</span>
+  <span class="nx">next</span><span class="p">.</span><span class="nx">addWindows</span><span class="p">([</span><span class="nb">window</span><span class="p">]);</span>
+<span class="p">}));</span>
+
+
+<span class="kd">function</span> <span class="nx">moveWindowToTargetSpace</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nx">nextWindow</span><span class="p">,</span> <span class="nx">allSpaces</span><span class="p">,</span> <span class="nx">spaceIndex</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">targetSpace</span> <span class="o">=</span> <span class="nx">allSpaces</span><span class="p">[</span><span class="nx">spaceIndex</span><span class="p">];</span>
+  <span class="kd">var</span> <span class="nx">currentSpace</span> <span class="o">=</span> <span class="nx">Space</span><span class="p">.</span><span class="nx">activeSpace</span><span class="p">();</span>
+
+  <span class="nx">currentSpace</span><span class="p">.</span><span class="nx">removeWindows</span><span class="p">([</span><span class="nb">window</span><span class="p">]);</span>
+  <span class="nx">targetSpace</span><span class="p">.</span><span class="nx">addWindows</span><span class="p">([</span><span class="nb">window</span><span class="p">]);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">currentSpace</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">hash</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">targetSpace</span><span class="p">.</span><span class="nx">screen</span><span class="p">().</span><span class="nx">hash</span><span class="p">())</span> <span class="p">{</span>
+	  <span class="nx">moveToScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nx">targetSpace</span><span class="p">.</span><span class="nx">screen</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">nextWindow</span><span class="p">)</span> <span class="p">{</span>
+	  <span class="nx">nextWindow</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+	  <span class="nx">restore_mouse_position_for_window</span><span class="p">(</span><span class="nx">nextWindow</span><span class="p">);</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="c1">// move window to park space</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'delete'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">isFollow</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">nextWindow</span> <span class="o">=</span> <span class="nx">isFollow</span> <span class="p">?</span> <span class="nb">window</span> <span class="p">:</span> <span class="nx">getNextWindowsOnSameScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+	<span class="kd">var</span> <span class="nx">allSpaces</span> <span class="o">=</span> <span class="nx">Space</span><span class="p">.</span><span class="nx">spaces</span><span class="p">();</span>
+	<span class="kd">var</span> <span class="nx">allSpaces</span> <span class="o">=</span> <span class="nx">Space</span><span class="p">.</span><span class="nx">spaces</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">screenCount</span> <span class="o">=</span> <span class="nx">Screen</span><span class="p">.</span><span class="nx">screens</span><span class="p">().</span><span class="nx">length</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">parkSpaceIndex</span> <span class="o">=</span> <span class="nx">PARK_SPACE_APP_INDEX_MAP</span><span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">app</span><span class="p">().</span><span class="nx">name</span><span class="p">()]</span> <span class="o">||</span> <span class="nx">PARK_SPACE_INDEX_MAP</span><span class="p">[</span><span class="nx">screenCount</span><span class="p">];</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">parkSpaceIndex</span> <span class="o">&gt;=</span> <span class="nx">allSpaces</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+	<span class="nx">moveWindowToTargetSpace</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nx">nextWindow</span><span class="p">,</span> <span class="nx">allSpaces</span><span class="p">,</span> <span class="nx">parkSpaceIndex</span><span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="c1">// move window to work space</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'return'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">isFollow</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">nextWindow</span> <span class="o">=</span> <span class="nx">isFollow</span> <span class="p">?</span> <span class="nb">window</span> <span class="p">:</span> <span class="nx">getNextWindowsOnSameScreen</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+	<span class="kd">var</span> <span class="nx">allSpaces</span> <span class="o">=</span> <span class="nx">Space</span><span class="p">.</span><span class="nx">spaces</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">screenCount</span> <span class="o">=</span> <span class="nx">Screen</span><span class="p">.</span><span class="nx">screens</span><span class="p">().</span><span class="nx">length</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">WORK_SPACE_INDEX_MAP</span><span class="p">[</span><span class="nx">screenCount</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="nx">allSpaces</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+	<span class="nx">moveWindowToTargetSpace</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nx">nextWindow</span><span class="p">,</span> <span class="nx">allSpaces</span><span class="p">,</span> <span class="nx">WORK_SPACE_INDEX_MAP</span><span class="p">[</span><span class="nx">screenCount</span><span class="p">]);</span>
+<span class="p">}));</span>
+
+<span class="c1">// move other window in this space to park space</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'return'</span><span class="p">,</span> <span class="nx">mashCtrl</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">isFollow</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nb">window</span> <span class="o">=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">focusedWindow</span><span class="p">();</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">nextWindow</span> <span class="o">=</span> <span class="nb">window</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">allSpaces</span> <span class="o">=</span> <span class="nx">Space</span><span class="p">.</span><span class="nx">spaces</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">otherWindowsInSameSpace</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">spaces</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="nx">windows</span><span class="p">(),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">hash</span><span class="p">()</span> <span class="o">!=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">hash</span><span class="p">();</span> <span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">screenCount</span> <span class="o">=</span> <span class="nx">Screen</span><span class="p">.</span><span class="nx">screens</span><span class="p">().</span><span class="nx">length</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">parkSpaceIndex</span> <span class="o">=</span> <span class="nx">PARK_SPACE_APP_INDEX_MAP</span><span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">app</span><span class="p">().</span><span class="nx">name</span><span class="p">()]</span> <span class="o">||</span> <span class="nx">PARK_SPACE_INDEX_MAP</span><span class="p">[</span><span class="nx">screenCount</span><span class="p">];</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">parkSpaceIndex</span> <span class="o">&gt;=</span> <span class="nx">allSpaces</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">otherWindowsInSameSpace</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parkedWindow</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">moveWindowToTargetSpace</span><span class="p">(</span><span class="nx">parkedWindow</span><span class="p">,</span> <span class="nx">nextWindow</span><span class="p">,</span> <span class="nx">allSpaces</span><span class="p">,</span> <span class="nx">parkSpaceIndex</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">}));</span>
+
+
+<span class="c1">// Test</span>
+<span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">Phoenix</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'0'</span><span class="p">,</span> <span class="nx">mash</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">//var cw = Window.focusedWindow();</span>
+  <span class="c1">//_.map(App.runningApps(), function(app) { Modal.show(app.title(), 5)});</span>
+  <span class="c1">//_.map([Window.focusedWindow()], function(window) { Modal.show(window.title())});  // current one</span>
+  <span class="c1">//_.map(Window.windows(), function(window) { Modal.show(window.title(), 5)});  // all, include hide</span>
+  <span class="c1">//_.map(Window.visibleWindows(), function(window) { Modal.show(window.title())});  // all, no hide</span>
+  <span class="c1">//_.map(Window.visibleWindowsInOrder(), function(window) { Modal.show(window.title())});</span>
+  <span class="c1">//_.map(Window.focusedWindow().otherWindowsOnAllScreens(), function(window) { Modal.show(window.title())});  // no space</span>
+  <span class="c1">//_.map(Window.focusedWindow().windowsOnOtherScreen(), alert_title);</span>
+  <span class="c1">//_.map(cw.sortByMostRecent(cw.windowsOnOtherScreen()), alert_title);</span>
+  <span class="c1">//_.map(cw.windowsOnOtherScreen(), alert_title);</span>
+  <span class="c1">//Modal.show(Window.focusedWindow().screen());</span>
+
+  <span class="c1">//_.chain(Window.windows()).difference(Window.visibleWindows()).map(function(window) { Modal.show(window.title())});  // all, include hide</span>
+  <span class="c1">//Modal.show(_.chain(Window.windows()).difference(Window.visibleWindows()).value().length);</span>
+  <span class="c1">//Modal.show(_.chain(Window.windows()).value().length);</span>
+  <span class="c1">//hide_inactiveWindow(Window.focusedWindow().otherWindowsOnAllScreens());</span>
+  <span class="c1">//var modal = new Modal();</span>
+  <span class="c1">//modal.message = 'F!';</span>
+  <span class="c1">//modal.duration = 2;</span>
+  <span class="c1">//modal.show();</span>
+  <span class="c1">//var window = Window.focusedWindow();</span>
+  <span class="c1">//var pos = mousePositions[window.hash()];</span>
+  <span class="c1">//var curPos = Mouse.location();</span>
+  <span class="c1">//Phoenix.log(String.format('x: {0}, y: {1}, c: {2}, {3}', pos.x, pos.y, curPos.x, curPos.y));</span>
+
+  <span class="kd">var</span> <span class="nx">visibleAppMostRecentFirst</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">Window</span><span class="p">.</span><span class="nx">visibleWindowsInOrder</span><span class="p">(),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">w</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">w</span><span class="p">.</span><span class="nx">hash</span><span class="p">();</span> <span class="p">});</span>
+  <span class="kd">var</span> <span class="nx">visibleAppMostRecentFirstWithWeight</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">object</span><span class="p">(</span><span class="nx">visibleAppMostRecentFirst</span><span class="p">,</span>
+                                                     <span class="nx">_</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="nx">visibleAppMostRecentFirst</span><span class="p">.</span><span class="nx">length</span><span class="p">));</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="nx">visibleAppMostRecentFirst</span><span class="p">);</span>
+  <span class="c1">//alert(visibleAppMostRecentFirstWithWeight['Google Chrome']);</span>
+  <span class="c1">//alert(visibleAppMostRecentFirstWithWeight['MacDown']);</span>
+<span class="p">}));</span>
+
+<span class="c1">// vim: set ft=javascript sw=2:</span></code></pre></figure>
+
+
+      </article>
+
+    </div>
+  </div>
+</main>
+
+
+      </div>
+    </div>
+
+
+    <footer class="site-footer">
+  <div class="container">
+    
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+         */
+        /*
+        var disqus_config = function () {
+            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function() {  // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            
+            s.src = '//bubodlack.disqus.com/embed.js';
+            
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    
+  </div>
+</footer>
+
+    <div>
+  <!-- jQuery is required by Materialize to function -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script type="text/javascript">
+    //custom JS code
+       $(document).ready(function(){
+            $('.collapsible').collapsible();
+          });
+      $(document).ready(function(){
+        $('.materialboxed').materialbox();
+        });
+  </script>
+  <script lang="javascript">
+    $('.button-collapse').sideNav({
+       menuWidth: 300, // Default is 240
+       edge: 'left', // Choose the horizontal origin
+       closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+     }
+    );
+  </script>
+</div>
+
+  </body>
+
+</html>
