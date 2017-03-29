@@ -1,4 +1,5 @@
-#Descrizione di come fare il deploy di un'applicazione rails con tutti i cazzo di crismi.
+Descrizione di come fare il deploy di un'applicazione rails con tutti i cazzo di crismi.
+==========
 
 Sto cercando di creare una configurazione che mi permetta di fare il deploy di una qualsiasi applicazione rails senza dovermi preoccupare troppo di metterci mano dopo.
 
@@ -161,4 +162,4 @@ Svolgo questya operazione con un altro docker-compose.yml:
     networks:
       webgateway:
         driver: bridge
-A questo punto tutto è configurato e pronto per essere utilizzato nello sviluppo del software.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+A questo punto tutto è configurato e pronto per essere utilizzato nello sviluppo del software.
