@@ -11,7 +11,8 @@ L'esito di questa guida dovrebbe essere il seguente:
  - Utilizzo della gemma passenger per la gestione del server
  
 
-##Adattamento del sistema di deploy al sistema traefik
+Adattamento del sistema di deploy al sistema traefik
+-----
 
 
 Traefik è forse il miglior sistema per gestire automaticamente la configurazione del webserver in un ambiente docker. Le caratteristiche che lo rendono preferibile rispetto alla seppur valida alternativa nginx-proxy sono:
@@ -38,7 +39,8 @@ Le dipendenze in rails sono un tasto dolente, sopratutto quando si lavora con do
 Ciò non di meno l'utilizzo di una immagine molto più piccola ha i suoi vantaggi pertanto è sempre meglio andare in questa direzione, in fin dei conti riadattare il progetto ad un'altra immagine consiste semplicemente nella creazione di un nuovo Dockerfile, il problema è che quando si ha poco tempo non sempre ci si riesce in leggerezza e si vorrebbe un po' di tempo in più per testare accuratamente gli esiti.
 Nello stesso [repo](https://hub.docker.com/_/ruby/) che ho mostrato vi sono anche delle immagini create con alpine linux.
 
-##Il Dockerfile
+Il Dockerfile
+------
 
     FROM ruby:2.3
     MAINTAINER bubodlack@gmail.com
@@ -84,8 +86,8 @@ Nello stesso [repo](https://hub.docker.com/_/ruby/) che ho mostrato vi sono anch
  1. Sto esponendo la porta 3000, questa operazione mi permette di non doverla specificare all'interno del docker-compose.yml, a meno che certo non ne abbia esposta più di una in quel caso devo specificare quale è destinata al web
  2. L'entrypoint richiama automaticamente bundle exec, ciò forza rails ad utilizzare le gemme definite all'interno del progetto preferendole a quelle di sistema evitando troppi messaggi in console di eventuali avvertimenti per contrasti tra le gemme installate nel sistema e quelle del progetto e ci assicura che tutti gli eseguibili che andiamo richiamando, come rails s o rails c o anche rake puntino a ciò che abbiamo importato assieme al progetto. Pertanto quando vorrò dare un comando al container mi basterà scrivere rake db:migrate e l'entrypoint gli verrà semplicemente anteposto.
 
-##Il docker-compose.yml
-
+Il docker-compose.yml
+-------
 
 Altro pezzo estremamente importante, qui bisogna specificare tutti comportamenti del container o dei conteiner che andranno ad utilizzare l'immagine che ho definito in precedenza nel Dockerfile.
 
